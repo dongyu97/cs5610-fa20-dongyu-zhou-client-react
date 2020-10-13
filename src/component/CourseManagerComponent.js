@@ -7,16 +7,20 @@ import CourseTableComponent from "./CourseTableComponent";
 import CourseEditorComponent from "./CourseEditorComponent";
 import {createCourse, deleteCourse, findAllCourses} from "../services/CourseService";
 import NavBarComponent from "./NavBarComponent";
+import CourseRowComponent from "./CourseRowCompinent";
+import CourseGridComponent from "./CourseGridComponent";
 
 export class CourseManagerComponent extends React.Component{
     state ={
-        courses :[]
+        courses :[],
+        newCourseTitle: "",
     }
 
 
     componentDidMount() {
         findAllCourses()
             .then(courses => {
+
                 this.setState(prevState => {
                     return {
                         courses: courses
@@ -27,19 +31,19 @@ export class CourseManagerComponent extends React.Component{
 
     }
 
-    toggleView = () => {
-        this.setState((previousState) => {
-            if (this.state.listView) {
-                return {
-                    listView: false
-                }
-            } else {
-                return {
-                    listView: true
-                }
-            }
-        });
-    };
+    // toggleView = () => {
+    //     this.setState((previousState) => {
+    //         if (this.state.listView) {
+    //             return {
+    //                 listView: false
+    //             }
+    //         } else {
+    //             return {
+    //                 listView: true
+    //             }
+    //         }
+    //     });
+    // };
 
 
 
@@ -70,10 +74,10 @@ export class CourseManagerComponent extends React.Component{
                           courseBeingEdited: course
                       })
     }
-    addCourse = () => {
+    addCourse = (courseTitle) => {
         const newCourse = {
 
-            title: "New Course",
+            title: courseTitle,
             owner: "me",
             modified: new Date().toDateString()
         }
@@ -108,8 +112,6 @@ export class CourseManagerComponent extends React.Component{
                     {/*<Route path="/register" exact component={Register}/>*/}
                     {/*<Route path="/profile" exact component={Profile}/>*/}
                     <Route path="/" exact>
-                        <NavBarComponent addCourse={this.addCourse()}
-                        updateCourse={this.update}/>
                         <CourseTableComponent courses={this.state.courses}
                                               addCourse={this.addCourse.bind(this)}
 
@@ -117,8 +119,15 @@ export class CourseManagerComponent extends React.Component{
                                               instructor={"jose"}
                                               term={"fall20"}/>
                     </Route>
-                    {/*<Route path="/edit" exact component={CourseEditorComponent}/>*/}
-                    {/*<Route path ="/edit/:courseId" exact component={CourseEditorComponent}/>*/}
+                    <Route path="/courseGrid" exact>
+                        <CourseGridComponent courses={this.state.courses}
+                                              addCourse={this.addCourse.bind(this)}
+
+                                              deleteCourse={this.deleteCourse.bind(this)}
+                                              />
+                    </Route>
+                    <Route path="/edit" exact component={CourseEditorComponent}/>
+                    <Route path ="/edit/:courseId" exact component={CourseEditorComponent}/>
                     {/*<Login/>*/}
                     {/*<Register/>*/}
                     {/*<Profile/>*/}

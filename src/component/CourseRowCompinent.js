@@ -9,18 +9,21 @@ const editCourse = () => {
 }
 
 
+
 export default class CourseRowComponent extends React.Component {
     state = {
         editing: this.props.editing,
         course: this.props.course,
-        color: "white"
+        color: "white",
 
     }
 
 
     render() {
         return (
-            <tr style={{backgroundColor: this.state.color}} onClick={()=>this.setState({color:"lightblue"})}>
+            <tr
+                style={{backgroundColor: this.state.color}}
+                onClick={()=>this.setState({color: "lightblue"})}>
                 <td>
                     {
                         this.state.editing &&
@@ -43,8 +46,8 @@ export default class CourseRowComponent extends React.Component {
 
                 </td>
 
-                <td>{this.props.course.owner}</td>
-                <td>{this.props.course.modified}</td>
+                <td className= "d-sm-table-cell d-none">{this.props.course.owner}</td>
+                <td className= "d-md-table-cell d-none">{this.props.course.modified}</td>
 
                 <td>
                     {/*<button className="btn btn-danger"*/}

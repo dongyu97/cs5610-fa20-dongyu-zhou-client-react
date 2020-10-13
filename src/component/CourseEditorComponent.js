@@ -1,5 +1,10 @@
 import React from "react";
 import {findCourseById} from "../services/CourseService";
+import ModuleListComponent from "./ModuleListComponent";
+import LessonTabsComponent from "./LessonTabsComponent";
+import TopicPillsComponent from "./TopicPillsComponent";
+import WidgetListComponent from "./WidgetListComponent";
+import {Link} from "react-router-dom";
 
 export default class CourseEditorComponent extends React.Component{
 
@@ -10,7 +15,7 @@ export default class CourseEditorComponent extends React.Component{
         }
     }
     componentDidMount() {
-        console.log(this.props)
+
         findCourseById(this.props.match.params.courseId)
             .then(actualCourse =>this.setState({
                 course: actualCourse
@@ -20,8 +25,35 @@ export default class CourseEditorComponent extends React.Component{
     render(){
         return(
             <div>
-                <h1>CourseEditor {this.props.match.params.courseId}</h1>
-                <h2>{this.state.course.title}</h2>
+
+                <div className="container-fluid">
+                    <nav className="navbar navbar-light bg-light row no-gutters">
+                        <div className="navbar-brand col-4" style={{"margin-right": "0"}} href="#">
+                            <Link to="/" className="wbdv-course-editor wbdv-close">
+                                <i className="fa fa-window-close-o fa-2x" aria-hidden="true"></i>
+                            </Link>
+                            <h1 className="wbdv-course-title"
+                                style={{display: "inline"}}>{this.state.course.title}</h1>
+                        </div>
+
+                        <LessonTabsComponent/>
+                    </nav>
+                </div>
+
+                <div class="container-fluid">
+
+
+                    <div class="row">
+                        <ModuleListComponent/>
+                        <WidgetListComponent/>
+
+                    </div>
+
+
+            </div>
+
+
+
             </div>
         )
     }

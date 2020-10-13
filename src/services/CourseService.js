@@ -1,4 +1,4 @@
-const url="https://wbdv-generic-server.herokuapp.com/api/dongyu/courses"
+const url="https://wbdv-generic-server.herokuapp.com/api/dongyuzhou/courses"
 
 export const findAllCourses =() =>
     fetch(url).then(response => response.json())
