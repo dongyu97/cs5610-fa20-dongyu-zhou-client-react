@@ -11,9 +11,38 @@ import Profile from "./component/Profile";
 import {BrowserRouter, Link, Route} from "react-router-dom";
 import CourseEditorComponent from "./component/CourseEditorComponent";
 import {CourseManagerComponent} from "./component/CourseManagerComponent";
+import Hello from "./component/Hello";
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux";
+import HelloContainer from "./container/HelloContainer";
+import Counter from "./component/Counter";
+import CounterContainer from "./container/CounterContainer";
+import widgetsReducer from "./reducers/widgetsReducer";
+import moduleReducer from "./reducers/moduleReducer";
+import fsm from "./reducers/fsm";
+import courseReducer from "./reducers/courseReducer";
+import lessonReducer from "./reducers/lessonReducer";
+import topicReducer from "./reducers/topicReducer";
+
+const reducers= combineReducers({
+    fsm,
+    widgetsReducer,
+    moduleReducer,
+    courseReducer,
+    lessonReducer,
+    topicReducer
+
+                             })
+
+const store =createStore(reducers)
 
 ReactDOM.render(
-    <CourseManagerComponent/>,
+    <Provider store={store}>
+
+
+    <CourseManagerComponent/>
+
+    </Provider>,
     document.getElementById('root')
 );
 

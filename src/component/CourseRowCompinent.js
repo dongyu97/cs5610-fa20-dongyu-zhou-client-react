@@ -44,6 +44,7 @@ export default class CourseRowComponent extends React.Component {
 
                     }
 
+
                 </td>
 
                 <td className= "d-sm-table-cell d-none">{this.props.course.owner}</td>
@@ -82,6 +83,7 @@ export default class CourseRowComponent extends React.Component {
                            onClick={() => {
                                updateCourse(this.state.course._id, this.state.course)
                                    .then(status => this.setState({editing: false}))
+
                            }}></i>
                         // <button className="btn btn-primary"
                         //         onClick={() => {
