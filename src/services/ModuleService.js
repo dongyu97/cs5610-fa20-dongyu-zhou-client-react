@@ -5,7 +5,7 @@ export const findModulesForCourse =(courseId) =>
     fetch(`${coursesURL}/${courseId}/modules`)
         .then(reponse => reponse.json())
 
-export const createModulesForCourse =(courseId, newModule) =>
+export const createModule =(courseId, newModule) =>
     fetch(`${coursesURL}/${courseId}/modules`,{
         method: "POST",
         body: JSON.stringify(newModule),
@@ -33,5 +33,5 @@ export const updateModule =(moduleId, newModule) =>
         .then(reponse => reponse.json())
 
 export default {
-    findModulesForCourse,createModulesForCourse, deleteModulesForCourse, updateModule
+    findModulesForCourse,createModulesForCourse: createModule, deleteModulesForCourse, updateModule
 }

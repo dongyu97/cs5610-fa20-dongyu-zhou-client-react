@@ -53,7 +53,12 @@ class CourseEditorComponent extends React.Component{
     render(){
         return(
             <div>
-                <h1>Course Editor </h1>
+                <h1><Link to="/" className="wbdv-course-editor wbdv-close">
+                    <i className="fa fa-window-close-o" aria-hidden="true"></i>
+                </Link>
+                    {this.props.course.title}
+                </h1>
+
 
 
                 <div className="row">
@@ -113,18 +118,18 @@ const propertyToDispatchMapper =(dispatch) =>({
                                       })),
     findModulesForCourse :(courseId) => ModuleService.findModulesForCourse(courseId)
         .then(actualModules=> dispatch({
-            type:"FIND_MODULES_FOR_COURSE",
+            type:"FIND_MODULE_FOR_COURSE",
             modules: actualModules
                                        })),
     findLessonsForModule :(moduleId) =>LessonService.findLessonsForModule(moduleId)
         .then(lessons => dispatch({
-            type: "FIND_LESSONS_FOR_MODULE",
+            type: "FIND_LESSON_FOR_MODULE",
             lessons,
             moduleId
                                  })),
     findTopicsForLesson :(lessonId) =>TopicService.findTopicsForLesson(lessonId)
         .then(topics => dispatch({
-            type:"FIND_TOPICS_FOR_LESSON",
+            type:"FIND_TOPIC_FOR_LESSON",
             topics,
             lessonId
                                  }))

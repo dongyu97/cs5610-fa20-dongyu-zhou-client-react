@@ -2,14 +2,14 @@ export const topicReducer =(state={}, action)=>{
 
     switch (action.type) {
 
-        case "FIND_TOPICS_FOR_LESSON":
+        case "FIND_TOPIC_FOR_LESSON":
             return {
                 ...state,
                 topics: action.topics,
                 lessonId: action.lessonId
 
             }
-        case "CREATE_TOPIC_FOR_LESSON":
+        case "CREATE_TOPIC":
             return {
                 ...state,
                 topics: [...state.topics,action.topic]
@@ -24,6 +24,12 @@ export const topicReducer =(state={}, action)=>{
                 ...state,
                 topics: state.topics.map(topic => topic._id === action.topic._id?action.topic : topic)
             }
+        case "UPDATE_ACTIVE_STATUS":
+            return {
+                ...state,
+                active_status: action.active_status
+            }
+
 
 
         default:

@@ -5,7 +5,7 @@ export const findTopicsForLesson =(lessonId) =>
     fetch(`${lessonURL}/${lessonId}/topics`)
         .then(response => response.json())
 
-export const createTopicForLesson =(lessonId,topic) =>
+export const createTopic =(lessonId, topic) =>
     fetch(`${lessonURL}/${lessonId}/topics`,{
         method: "POST",
         body: JSON.stringify(topic),
@@ -28,4 +28,4 @@ export const deleteTopic =(topicId) =>
         method:"DELETE"
     }).then(response =>response.json())
 
-export default {findTopicsForLesson, createTopicForLesson,updateTopic,deleteTopic}
+export default {findTopicsForLesson, createTopicForLesson: createTopic,updateTopic,deleteTopic}

@@ -16,7 +16,7 @@ export const findLessonsForModule =(moduleId) =>
 
 
 
-export const createLessonForModule =(moduleId,lesson) =>
+export const createLesson =(moduleId, lesson) =>
     fetch(`${modulesURL}/${moduleId}/lessons`,{
         method: "POST",
         body: JSON.stringify(lesson),
@@ -32,7 +32,7 @@ export const deleteLesson =(lessonId) =>
 
 export default {
     findLessonsForModule,
-    createLessonForModule,
+    createLessonForModule: createLesson,
     deleteLesson,
     updateLesson
 }

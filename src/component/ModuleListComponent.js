@@ -5,24 +5,50 @@ import {Link} from "react-router-dom";
 
 const ModuleListComponent = ({
                                  course = {},
+                                 active_status = [],
                                  modules = [],
                                  deleteModule,
                                  createModule,
                                  updateModule,
                                  editModule,
-                                 ok
-                             }) =>
-    <div>
-        <h1>for {course.title}</h1>
+                                 ok,
+                                    click
+                             }) =>{
+
+    const togle = (id) => {
+        const new_active_status = modules.map((module) => {
+            if (module._id === id) {
+                return Object.assign(
+                    {},
+                    { _id: module._id, className: " active" }
+                );
+            } else {
+                return Object.assign({}, { _id: module._id, className: "" });
+            }
+        });
+        click(Object.assign([], active_status, new_active_status));
+    };
+
+    return (
+        <div>
+
         <ul className="list-group">
             {
-                modules.map(module =>
-                                <li key={module._id}
-                                    className={module.class_name}>
+                modules.map((module) =>{
+                    const status = active_status.filter(
+                        (status) => status._id === module._id
+                    )[0];
+                    let class_name = "";
+                    if (status !== undefined) {
+                        class_name = status.className;
+                    }
+                    return(<li key={module._id}
+                                    className={"list-group-item" + class_name}
+                               onClick={()=>togle(module._id)}>
 
                                     {!module.editing &&
 
-                                     <span>
+                                     <span >
 
                                          <Link
                                              to={`/edit/${course._id}/modules/${module._id}`}>{module.title}
@@ -48,9 +74,9 @@ const ModuleListComponent = ({
                                     }
 
 
-                                </li>
-                )
-            }
+                                </li>);})}
+
+
             <li className="list-group-item">
 
                 <i onClick={() => createModule(course)} className="fa fa-plus pull-right"></i>
@@ -58,7 +84,7 @@ const ModuleListComponent = ({
             </li>
         </ul>
 
-    </div>
+    </div>);}
 // export default class ModuleListComponent extends React.Component{
 //     render() {
 //         return(
@@ -81,19 +107,19 @@ const ModuleListComponent = ({
 
 const stateToPropertyMapper = (state) => ({
     modules: state.moduleReducer.modules,
-    course: state.courseReducer.course
+    course: state.courseReducer.course,
+    active_status: state.moduleReducer.active_status,
 })
 
 const PropertyToDispatchMapper = (dispatch) => ({
     ok: (module) =>
         ModuleService.updateModule(module._id, {
-            ...module, editing: false, class_name: "list-group-item"
+            ...module, editing: false
         }).then(status => dispatch({
                                        type: "UPDATE_MODULE",
                                        module: {
                                            ...module,
-                                           editing: false,
-                                           class_name: "list-group-item"
+                                           editing: false
                                        }
                                    }))
     ,
@@ -101,7 +127,13 @@ const PropertyToDispatchMapper = (dispatch) => ({
         dispatch({
                      type: "UPDATE_MODULE",
                      module: module
-                 })
+                 }),
+    click: (active_status) => {
+            dispatch({
+                         type: "UPDATE_ACTIVE_STATUS",
+                         active_status,
+                     });
+    }
     // ModuleService.updateModule(module._id, module)
     //     .then(status => dispatch({
     //         type: "UPDATE_MODULE",
@@ -110,13 +142,12 @@ const PropertyToDispatchMapper = (dispatch) => ({
     ,
     editModule: (module) =>
         ModuleService.updateModule(module._id, {
-            ...module, editing: true, class_name: "list-group-item active"
+            ...module, editing: true
         }).then(status => dispatch({
                                        type: "UPDATE_MODULE",
                                        module: {
                                            ...module,
-                                           editing: true,
-                                           class_name: "list-group-item active"
+                                           editing: true
                                        },
 
                                    }))
@@ -129,16 +160,13 @@ const PropertyToDispatchMapper = (dispatch) => ({
                                    module: module
                                })
             ),
-    createModule: (course) =>
-        ModuleService.createModulesForCourse(course._id, {
-            title: "New Module"
+    createModule: (module) =>
+        ModuleService.createModulesForCourse(module._id, {
+            title: "New Module",
+            class_name:"list-group-item"
         }).then(actualModule => dispatch({
                                              type: "CREATE_MODULE",
-                                             module: {
-                                                 _id: (new Date()).getMilliseconds() + "",
-                                                 title: "new module",
-                                                 class_name: "list-group-item "
-                                             }
+                                             module: actualModule
                                          })
         )
 

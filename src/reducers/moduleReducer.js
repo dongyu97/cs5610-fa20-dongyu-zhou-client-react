@@ -1,3 +1,4 @@
+
 const initialState = {
     modules: []
 }
@@ -5,7 +6,7 @@ const initialState = {
 
 const moduleReducer = (state=initialState, action) =>{
     switch (action.type) {
-        case "FIND_MODULES_FOR_COURSE":
+        case "FIND_MODULE_FOR_COURSE":
             return {
                 ...state,
                 modules: action.modules
@@ -14,6 +15,11 @@ const moduleReducer = (state=initialState, action) =>{
             return {
                 ...state,
                 modules: state.modules.filter(module => module._id!== action.module._id)
+            }
+        case "UPDATE_ACTIVE_STATUS":
+            return {
+                ...state,
+                active_status: action.active_status
             }
         case "CREATE_MODULE":
             return {

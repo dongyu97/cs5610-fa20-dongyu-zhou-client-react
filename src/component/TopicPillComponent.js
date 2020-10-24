@@ -9,14 +9,40 @@ const TopicPill =({topics=[],
                       editTopic,
                   ok,
                   updateTopic,
-                      deleteTopic}
-                  ) =>
-    <div>
-        <h1>Topics</h1>
+                      deleteTopic,
+                      active_status=[],
+                  click}
+                  ) =>{
 
-        <ul>
-            {topics.map(topic =>
-                            <li>
+    const togle = (id) => {
+        const new_active_status = topics.map((topic) => {
+            if (topic._id === id) {
+                return Object.assign(
+                    {},
+                    {_id: topic._id, className: " active"}
+                );
+            } else {
+                return Object.assign({}, {_id: topic._id, className: ""});
+            }
+        });
+        click(Object.assign([], active_status, new_active_status));
+    };
+    return(<div>
+
+
+        <ul className="nav nav-pills">
+            {topics.map(topic =>{
+                const status = active_status.filter(
+                    (status) => status._id === topic._id
+                )[0];
+                let class_name = "";
+                if (status !== undefined) {
+                    class_name = status.className;
+                }
+                            return(<li className="nav-item"
+                                       onClick={()=>togle(topic._id)}
+                            >
+                                <a className={"nav-link " + class_name} href="#">
                                 {
                                     topic.editing&&
                                     <span>
@@ -25,32 +51,44 @@ const TopicPill =({topics=[],
                                                                                 title: event.target.value
                                                                             }))}
                                         value={topic.title}/>
-                                        <button onClick={() =>ok(topic)}>
-                                            <i className="fa fa-check"></i>
-                                        </button>
+
+                                            <i onClick={() =>ok(topic)}
+                                                className="fa fa-check"></i>
+
                                     </span>
                                 }
                                 {
                                     !topic.editing&&
                                     <span>
                                         {topic.title}
-                                        <button onClick={()=>editTopic(topic)}>
-                                            <i className="fa fa-pencil"></i>
-                                        </button>
-                                        <button onClick={() =>deleteTopic(topic._id)}>
-                                            <i className="fa fa-times"></i>
-                                        </button>
+
+                                            <i onClick={()=>editTopic(topic)}
+                                               className="fa fa-pencil"></i>
+
+
+                                            <i onClick={() =>deleteTopic(topic._id)}
+                                                className="fa fa-times"></i>
+
                                     </span>
                                 }
-                            </li>
+                                </a>
+                            </li>);}
+
             )}
+            <li>
+                <a className="nav-link" href="#">
+                <i onClick={()=>createTopicForLesson(lessonId)} className="fa fa-plus"></i>
+                </a>
+            </li>
         </ul>
-        <button onClick={()=>createTopicForLesson(lessonId)}>create</button>
-    </div>
+
+    </div>);
+}
 
 const stateToPropertyMapper =(state)=>({
     topics: state.topicReducer.topics,
     lessonId: state.topicReducer.lessonId,
+    active_status: state.lessonReducer.active_status,
     // moduleId: state.topicReducer.moduleId,
 
 })
@@ -58,7 +96,7 @@ const dispatchToProperMapper = (dispatch) => ({
     createTopicForLesson: (lessonId) => TopicService.createTopicForLesson(lessonId,{
         title:"new topic"
     }).then(actualTopic => dispatch({
-        type:"CREATE_TOPIC_FOR_LESSON",
+        type:"CREATE_TOPIC",
         topic: actualTopic
         // topic: {
         //     _id:(new Date()).getMilliseconds()+"",
@@ -84,12 +122,19 @@ const dispatchToProperMapper = (dispatch) => ({
                      type: "UPDATE_TOPIC",
                      topic: topic
                  }),
+    click: (active_status) => {
+        dispatch({
+                     type: "UPDATE_ACTIVE_STATUS",
+                     active_status,
+                 });
+    },
     deleteTopic: (topicId) =>
         TopicService.deleteTopic(topicId)
             .then(status =>dispatch({
                 type: "DELETE_TOPIC",
                 topicId
                                     }))
+
 
 
 })
