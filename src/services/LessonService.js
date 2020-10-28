@@ -1,4 +1,4 @@
-const modulesURL="http://wbdv-generic-server.herokuapp.com/api/dongyuzhou/modules"
+const modulesURL="https://wbdv-generic-server.herokuapp.com/api/dongyuzhou/modules"
 const lessonURL= "https://wbdv-generic-server.herokuapp.com/api/dongyuzhou/lessons"
 
 export const updateLesson = (lessonId,newLesson) =>

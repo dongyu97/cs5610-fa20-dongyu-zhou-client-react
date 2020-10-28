@@ -80,7 +80,7 @@ const LessonTabs = ({
                         }
                         value={lesson.title}
                     />
-                    
+
                       <i onClick={() => ok(lesson)} className="fa fa-check"></i>
 
                   </span>

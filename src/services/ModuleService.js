@@ -1,4 +1,4 @@
-const modulesURL="http://wbdv-generic-server.herokuapp.com/api/dongyuzhou/modules"
+const modulesURL="https://wbdv-generic-server.herokuapp.com/api/dongyuzhou/modules"
 const coursesURL="https://wbdv-generic-server.herokuapp.com/api/dongyuzhou/courses"
 
 export const findModulesForCourse =(courseId) =>
