@@ -1,4 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Heroku link:
+https://cs5610-f20-react-dongyu-zhou.herokuapp.com/
 
 ## Available Scripts
 
