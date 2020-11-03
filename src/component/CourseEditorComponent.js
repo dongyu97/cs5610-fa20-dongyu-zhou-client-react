@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import ModuleService from "../services/ModuleService";
 import LessonService from "../services/LessonService";
 import TopicService from "../services/TopicService";
+import WidgetService from "../services/WidgetService";
 
 
 
@@ -25,6 +26,7 @@ class CourseEditorComponent extends React.Component{
         const courseId =this.props.match.params.courseId
         const moduleId= this.props.match.params.moduleId
         const lessonId=this.props.match.params.lessonId
+        const topicId = this.props.match.params.topicId
 
 
 
@@ -36,6 +38,10 @@ class CourseEditorComponent extends React.Component{
         if (lessonId){
             this.props.findTopicsForLesson(lessonId)
         }
+        if (topicId){
+            this.props.findWidgetsForTopic(topicId)
+        }
+
 
     }
 
@@ -47,6 +53,10 @@ class CourseEditorComponent extends React.Component{
         const lessonId=this.props.match.params.lessonId
         if (prevProps.match.params.lessons!== lessonId){
             this.props.findTopicsForLesson(lessonId)
+        }
+        const topicId=this.props.match.params.topicId
+        if (prevProps.match.params.topics!== topicId){
+            this.props.findWidgetsForTopic(topicId)
         }
     }
 
@@ -132,7 +142,14 @@ const propertyToDispatchMapper =(dispatch) =>({
             type:"FIND_TOPIC_FOR_LESSON",
             topics,
             lessonId
-                                 }))
+                                 })),
+
+    findWidgetsForTopic:(topicId) => WidgetService.findWidgetsForTopic(topicId)
+        .then(widgets => dispatch({
+            type: "FIND_ALL_WIDGETS_FOR_TOPIC",
+            widgets,
+            topicId
+                                  }))
 
 })
 export default connect(stateToPropertyMapper,propertyToDispatchMapper)(CourseEditorComponent)

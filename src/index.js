@@ -24,13 +24,15 @@ import courseReducer from "./reducers/courseReducer";
 import lessonReducer from "./reducers/lessonReducer";
 import topicReducer from "./reducers/topicReducer";
 
+
 const reducers= combineReducers({
     fsm,
     widgetsReducer,
     moduleReducer,
     courseReducer,
     lessonReducer,
-    topicReducer
+    topicReducer,
+
 
                              })
 

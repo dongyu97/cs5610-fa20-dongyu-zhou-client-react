@@ -127,7 +127,9 @@ export class CourseManagerComponent extends React.Component{
                                               />
                     </Route>
                     <Route path="/edit" exact component={CourseEditorComponent}/>
-                    <Route path ={["/edit/:courseId","/edit/:courseId/modules/:moduleId","/edit/:courseId/modules/:moduleId/lessons/:lessonId"]} exact component={CourseEditorComponent}/>
+                    <Route path ={["/edit/:courseId","/edit/:courseId/modules/:moduleId",
+                                   "/edit/:courseId/modules/:moduleId/lessons/:lessonId",
+                                   "/edit/:courseId/modules/:moduleId/lessons/:lessonId/topics/:topicId"]} exact component={CourseEditorComponent}/>
                     {/*<Route path ="/edit/:courseId/modules/:moduleId" exact component={CourseEditorComponent}/>*/}
                     {/*<Login/>*/}
                     {/*<Register/>*/}

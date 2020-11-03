@@ -2,8 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 import LessonService from "../services/LessonService";
 import TopicService from "../services/TopicService";
+import {Link} from "react-router-dom";
 
-const TopicPill =({topics=[],
+const TopicPill =({course={},
+                    moduleId={},
+                      topics=[],
                   createTopicForLesson,
                   lessonId,
                       editTopic,
@@ -60,7 +63,10 @@ const TopicPill =({topics=[],
                                 {
                                     !topic.editing&&
                                     <span>
-                                        {topic.title}
+                                        <Link to={`/edit/${course._id}/modules/${moduleId}/lessons/${lessonId}/topics/${topic._id}`}>
+                                            {topic.title}
+                                        </Link>
+
 
                                             <i onClick={()=>editTopic(topic)}
                                                className="fa fa-pencil"></i>
@@ -89,6 +95,9 @@ const stateToPropertyMapper =(state)=>({
     topics: state.topicReducer.topics,
     lessonId: state.topicReducer.lessonId,
     active_status: state.lessonReducer.active_status,
+
+    moduleId: state.lessonReducer.moduleId,
+    course: state.courseReducer.course,
     // moduleId: state.topicReducer.moduleId,
 
 })
@@ -98,10 +107,7 @@ const dispatchToProperMapper = (dispatch) => ({
     }).then(actualTopic => dispatch({
         type:"CREATE_TOPIC",
         topic: actualTopic
-        // topic: {
-        //     _id:(new Date()).getMilliseconds()+"",
-        //     title: "new topic"
-        // }
+
                                                                                         })),
     editTopic: (topic) =>
         TopicService.updateTopic(topic._id,{

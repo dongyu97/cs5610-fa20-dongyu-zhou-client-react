@@ -1,9 +1,15 @@
+import WidgetService from "../services/WidgetService";
+import TopicService from "../services/TopicService";
 export const DELETE_WIDGET= "DELETE_WIDGET"
 export const CREATE_WIDGET="CREATE_WIDGET"
 export const UPDATE_WIDGET="UPDATE_WIDGET"
 export const EDIT_WIDGET="UPDATE_WIDGET"
-export const deleteWidget  =(dispatch,widget) =>
-    dispatch({type: DELETE_WIDGET, widget})
+export const deleteWidget  =(dispatch,widgetId) => WidgetService.deleteWidget(widgetId)
+    .then(status =>dispatch({
+        type: DELETE_WIDGET,
+        widgetId
+                            }))
+
 
 export const createWidget = (dispatch) =>
     dispatch({type: CREATE_WIDGET})
