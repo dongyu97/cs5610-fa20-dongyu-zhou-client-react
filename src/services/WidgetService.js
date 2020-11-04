@@ -1,5 +1,5 @@
-const topicURL= "http://localhost:8080/api/topics"
-const widgetURL= "http://localhost:8080/api/widgets"
+const topicURL= "https://cs5610-widget-server.herokuapp.com/api/topics"
+const widgetURL= "https://cs5610-widget-server.herokuapp.com/api/widgets"
 
 export const findWidgetsForTopic =(topicId) =>
     fetch(`${topicURL}/${topicId}/widgets`)
