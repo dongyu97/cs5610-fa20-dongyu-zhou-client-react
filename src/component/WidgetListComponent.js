@@ -1,4 +1,6 @@
 import React from "react";
+import HeadingWidget from "./HeadingWidget";
+import ParagraphWidget from "./ParagraphWidget";
 
 
 const WidgetListComponent =({widgets=[], createWidget,
@@ -7,8 +9,7 @@ const WidgetListComponent =({widgets=[], createWidget,
                                 deleteWidget,
                                 down,
                                 updateWidget,
-                                editWidget,
-                                okWidget,
+                                editWidget,ok,
                             up}) =>
     <div>
         <div className="card" id="headingWidget" name="dynamicWidget">
@@ -20,16 +21,39 @@ const WidgetListComponent =({widgets=[], createWidget,
                 {
 
                 widgets.map((widget,index) =>
-                                <li>{ widget.type== "Heading"&&
-                                      <div>
-                                          {widget.name}
-                                          <button onClick={() =>deleteWidget(widget.id)}>delete</button>
-                                          <button onClick={()=>up(widget, widgets, topicId)}>up</button>
-                                          <button onClick={()=>down(widget.id, widgets, topicId)}>down</button>
 
-                                      </div>
+                                <li>
+                                    {
+                                    widget.type== "Heading"&&
+                                      <HeadingWidget widget={widget}
+                                                     topicId={topicId}
+                                                     updateWidget={updateWidget}
+                                                     deleteWidget={deleteWidget}
+                                                     editWidget={editWidget}
+                                                     ok={ok}
+                                                     up={up}
+                                                     widgets={widgets}
+                                                     down={down}
+                                                     index={index}
+
+
+                                      />||
+                                      widget.type== "Paragraph"&&
+                                      <ParagraphWidget widget={widget}
+
+                                                       topicId={topicId}
+                                                       updateWidget={updateWidget}
+                                                       deleteWidget={deleteWidget}
+                                                       editWidget={editWidget}
+                                                       ok={ok}
+                                                       up={up}
+                                                       widgets={widgets}
+                                                       down={down}
+                                                       index={index}
+                                                        />
 
                                     }
+
                                     {/*{widget.name}*/}
                                     {/*id: {widget.id}*/}
                                     {/*order :{widget.widgetOrder}*/}

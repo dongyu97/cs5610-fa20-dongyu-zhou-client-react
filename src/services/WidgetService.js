@@ -27,6 +27,15 @@ export const updateWidget = (WidgetId,newWidget) =>
         }
     }).then(response => response.json())
 
+export const updateallWidgets =(topicId,widgets) =>
+    fetch(`${topicURL}/${topicId}/widgets`,{
+        method: "PUT",
+        body: JSON.stringify(widgets),
+        headers: {
+            "content-type": "application/json"
+        }
+    })
 
 
-    export default {findWidgetsForTopic, createWidget,deleteWidget,updateWidget}
+
+    export default {findWidgetsForTopic, createWidget,deleteWidget,updateWidget,updateallWidgets}

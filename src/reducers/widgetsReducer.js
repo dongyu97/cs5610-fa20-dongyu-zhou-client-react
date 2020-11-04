@@ -8,10 +8,16 @@ const initialState ={
 const widgetsReducer =(state =initialState, action) =>{
     switch (action.type) {
         case "FIND_ALL_WIDGETS_FOR_TOPIC":
-
             return {
                 ...state,
-                widgets: action.widgets,
+                widgets: action.widgets.sort(function (a,b) {
+                    if (a.widgetOrder>b.widgetOrder){
+                        return 1;
+                    }
+                    else {
+                        return -1;
+                    }
+                }),
                 topicId: action.topicId
             }
         case CREATE_WIDGET:
@@ -22,14 +28,17 @@ const widgetsReducer =(state =initialState, action) =>{
             }
         case UPDATE_WIDGET:
             return {
+                ...state,
                 widgets: state.widgets.map(
                     widget => widget.id===action.widget.id ?
                               action.widget: widget)
             }
         case DELETE_WIDGET:
             return {
-                widgets: state.widgets.filter(widget=> widget._id!==action.widgetId)
+                ...state,
+                widgets: state.widgets.filter(widget=> widget.id!==action.widgetId)
             }
+
         default:
             return state
     }
