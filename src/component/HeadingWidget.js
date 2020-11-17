@@ -44,6 +44,7 @@ const HeadingWidget= ({widget, updateWidget,editWidget, ok, createWidgetForTopic
                             style={{marginTop: '10px'}}>
                             <option value="Heading">Heading</option>
                             <option value="Paragraph">Paragraph</option>
+                            <option value="Image">Image</option>
                             <option value="List">List</option>
                             <option value="Hyperlink">Hyperlink</option>
                             <option value="Video">Video</option>

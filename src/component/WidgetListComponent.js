@@ -1,6 +1,8 @@
 import React from "react";
 import HeadingWidget from "./HeadingWidget";
 import ParagraphWidget from "./ParagraphWidget";
+import ListWidget from "./ListWidget";
+import ImageWidget from "./ImageWidget";
 
 
 const WidgetListComponent =({widgets=[], createWidget,
@@ -50,7 +52,34 @@ const WidgetListComponent =({widgets=[], createWidget,
                                                        widgets={widgets}
                                                        down={down}
                                                        index={index}
-                                                        />
+                                                        />||
+                                    widget.type=="List"&&
+                                    <ListWidget widget={widget}
+
+                                                     topicId={topicId}
+                                                     updateWidget={updateWidget}
+                                                     deleteWidget={deleteWidget}
+                                                     editWidget={editWidget}
+                                                     ok={ok}
+                                                     up={up}
+                                                     widgets={widgets}
+                                                     down={down}
+                                                     index={index}
+                                    />||
+                                    widget.type=="Image"&&
+                                    <ImageWidget widget={widget}
+
+                                                topicId={topicId}
+                                                updateWidget={updateWidget}
+                                                deleteWidget={deleteWidget}
+                                                editWidget={editWidget}
+                                                ok={ok}
+                                                up={up}
+                                                widgets={widgets}
+                                                down={down}
+                                                index={index}
+                                    />
+
 
                                     }
 
